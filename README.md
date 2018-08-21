@@ -1,12 +1,12 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This is sandbox for symfony 1.4
 
-### What is this repository for? ###
+### Advantages ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Available on PHP 5.*, 7.0, 7.1, 7.2
+* Latest version of Swiftmailer 
+* Doctrine 1.2.6
 
 ### How do I get set up? ###
 
@@ -23,7 +23,7 @@ This README would normally document whatever steps are necessary to get your app
 * Code review
 * Other guidelines
 
-### Who do I talk to? ###
+### Author ###
 
 * Repo owner or admin
-* Other community or team contact
+* baatarchuluuna@gmail.com
