@@ -1,0 +1,4 @@
+all:
+  weather:
+    partner: 1206508523         # Your weather.com partner ID
+    licence: c5c10400c244c25d   # Your weather.com licence key      
