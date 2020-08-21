@@ -1,6 +1,7 @@
 # README #
 
-This is sandbox for symfony 1.4
+This is sandbox for symfony 1.4.<br/>
+Greensoft Oauth Client library
 
 ### Advantages ###
 
@@ -8,20 +9,11 @@ This is sandbox for symfony 1.4
 * Latest version of Swiftmailer 
 * Doctrine 1.2.6
 
-### How do I get set up? ###
+### Greensoft Oauth client library ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
+* lib/oauth-client фолдер дотор бий
+* OauthClient - классыг дуудна
+* Controller нь apps/frontend/modules/public/actions/actions.class.php файлд бий
 
 ### Author ###
 
