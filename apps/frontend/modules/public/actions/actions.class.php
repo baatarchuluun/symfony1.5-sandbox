@@ -20,7 +20,7 @@ class publicActions extends sfActions
         $code = $request->getParameter('code');
 
         if ($code) {
-            $baseUri = 'http://api.accounts.greensoft.mn';
+            $baseUri = sfConfig::get('app_oauth_base_uri');
             // Client ID, Client Secret зэргийг аккаунт систем дээр үүсгүүлнэ
             $clientId = 'client ID';
             $clientSecret = 'client SECRET';
@@ -29,14 +29,8 @@ class publicActions extends sfActions
             $accessToken = $oauthClient->getAccessToken($code);
             $user = $oauthClient->getUserInfo($accessToken);
 
-            echo 'FirstName: '.$user['firstName'].'<br/>';
-            echo 'LastName: '.$user['lastName'].'<br/>';
-            echo 'UserId: '.$user['id'].'<br/>';
-            echo 'Email address: '.$user['email'];
-
-            die;
-        } else {
-            throw new Exception('Authorization code not found!');
+            $this->getUser()->setAuthenticated(true);
+            $this->user = $user;
         }
     }
 }
