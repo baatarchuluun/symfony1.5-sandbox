@@ -11,7 +11,7 @@
 class publicActions extends sfActions
 {
     /**
-     * @param sfWebRequest $request
+     * Authorization code хүлээж авах.
      *
      * @throws Exception
      */
@@ -21,16 +21,31 @@ class publicActions extends sfActions
 
         if ($code) {
             $baseUri = sfConfig::get('app_oauth_base_uri');
-            // Client ID, Client Secret зэргийг аккаунт систем дээр үүсгүүлнэ
-            $clientId = 'client ID';
-            $clientSecret = 'client SECRET';
+            $clientId = sfConfig::get('app_oauth_client_id');
+            $clientSecret = sfConfig::get('app_oauth_client_secret');
 
             $oauthClient = new OauthClient($baseUri, $clientId, $clientSecret);
             $accessToken = $oauthClient->getAccessToken($code);
             $user = $oauthClient->getUserInfo($accessToken);
 
-            $this->getUser()->setAuthenticated(true);
-            $this->user = $user;
+            if (array_key_exists('id', $user)) {
+                $this->getUser()->signIn($user, $accessToken);
+                $this->user = $user;
+            }
+        }
+    }
+
+    public function executeUserCheck()
+    {
+        $accessToken = $this->getUser()->getAccessToken();
+
+        if ($accessToken) {
+            $oauthClient = new OauthClient(sfConfig::get('app_oauth_base_uri'), sfConfig::get('app_oauth_client_id'), sfConfig::get('app_oauth_client_secret'));
+            $isLogged = $oauthClient->isUserLogged($accessToken);
+
+            if (!$isLogged) {
+                // todo: get access token by refresh token
+            }
         }
     }
 }
