@@ -2,6 +2,8 @@
 
 class OauthClient
 {
+    const CODE_SUCCESS = 0;
+
     private $baseUri;
     private $client;
     private $clientId;
@@ -32,7 +34,7 @@ class OauthClient
             ],
         ]);
 
-        return $result['response']['accessToken'];
+        return $result['response'];
     }
 
     /**
@@ -47,6 +49,46 @@ class OauthClient
         $result = $this->client->get($this->baseUri . '/api/me', [
             'header' => [
                 'Authorization: Bearer '.$accessToken,
+            ],
+        ]);
+
+        return $result;
+    }
+
+    /**
+     * @param $accessToken
+     *
+     * @return bool
+     *
+     * @throws Exception
+     */
+    public function isUserLogged($accessToken)
+    {
+        $result = $this->client->get($this->baseUri . '/api/user/logged', [
+            'header' => [
+                'Authorization: Bearer '.$accessToken,
+            ],
+        ]);
+
+        if (self::CODE_SUCCESS === $result['code']) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $refreshToken
+     *
+     * @return mixed
+     *
+     * @throws Exception
+     */
+    public function getAccessTokenByRefreshToken($refreshToken)
+    {
+        $result = $this->client->post($this->baseUri . '/api/token/refresh', [
+            'data' => [
+                'refresh_token' => $refreshToken,
             ],
         ]);
 
