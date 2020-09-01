@@ -25,16 +25,21 @@ class publicActions extends sfActions
             $clientSecret = sfConfig::get('app_oauth_client_secret');
 
             $oauthClient = new OauthClient($baseUri, $clientId, $clientSecret);
-            $accessToken = $oauthClient->getAccessToken($code);
+            $token = $oauthClient->getAccessToken($code);
+            $accessToken = $token['accessToken'];
+            $refreshToken = $token['refreshToken'];
             $user = $oauthClient->getUserInfo($accessToken);
 
             if (array_key_exists('id', $user)) {
-                $this->getUser()->signIn($user, $accessToken);
+                $this->getUser()->signIn($user, $accessToken, $refreshToken);
                 $this->user = $user;
             }
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function executeUserCheck()
     {
         $accessToken = $this->getUser()->getAccessToken();
@@ -44,7 +49,10 @@ class publicActions extends sfActions
             $isLogged = $oauthClient->isUserLogged($accessToken);
 
             if (!$isLogged) {
-                // todo: get access token by refresh token
+                $refreshToken = $this->getUser()->getRefreshToken();
+                $accessToken = $oauthClient->getAccessTokenByRefreshToken($refreshToken);
+                $user = $oauthClient->getUserInfo($accessToken);
+                $this->getUser()->signIn($user, $accessToken, $refreshToken);
             }
         }
     }

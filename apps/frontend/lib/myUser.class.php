@@ -7,13 +7,15 @@ class myUser extends sfBasicSecurityUser
      *
      * @param $user
      * @param $accessToken
+     * @param $refreshToken
      */
-    public function signIn($user, $accessToken)
+    public function signIn($user, $accessToken, $refreshToken)
     {
         $this->setAuthenticated(true);
         $this->setAttribute('id', $user['id']);
         $this->setAttribute('name', $user['firstName'].' '.$user['lastName']);
         $this->setAttribute('accessToken', $accessToken);
+        $this->setAttribute('refreshToken', $refreshToken);
     }
 
     /**
@@ -38,6 +40,14 @@ class myUser extends sfBasicSecurityUser
     public function getAccessToken()
     {
         return $this->getAttribute('accessToken', null);
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getRefreshToken()
+    {
+        return $this->getAttribute('refreshToken', null);
     }
 
     /**

@@ -34,7 +34,7 @@ class OauthClient
             ],
         ]);
 
-        return $result['response']['accessToken'];
+        return $result['response'];
     }
 
     /**
