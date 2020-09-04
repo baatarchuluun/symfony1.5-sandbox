@@ -57,7 +57,5 @@ class myUser extends sfBasicSecurityUser
     {
         $this->setAuthenticated(false);
         $this->getAttributeHolder()->clear();
-
-        // todo: token revoke function
     }
 }

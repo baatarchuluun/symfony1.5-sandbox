@@ -94,4 +94,22 @@ class OauthClient
 
         return $result;
     }
+
+    /**
+     * @param $accessToken
+     *
+     * @return mixed
+     *
+     * @throws Exception
+     */
+    public function revokeAccessToken($accessToken)
+    {
+        $result = $this->client->post($this->baseUri . '/api/oauth/v2/token/revoke', [
+            'header' => [
+                'Authorization: Bearer '.$accessToken,
+            ],
+        ]);
+
+        return $result;
+    }
 }
