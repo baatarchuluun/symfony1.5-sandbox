@@ -38,6 +38,8 @@ class publicActions extends sfActions
     }
 
     /**
+     * Хэрэглэгчийн accessToken дууссан бол дахин шинэчилж авах логик.
+     *
      * @throws Exception
      */
     public function executeUserCheck()
@@ -54,6 +56,23 @@ class publicActions extends sfActions
                 $user = $oauthClient->getUserInfo($accessToken);
                 $this->getUser()->signIn($user, $accessToken, $refreshToken);
             }
+        }
+    }
+
+    /**
+     * Гарах. Oauth server-ээс accessToken-уудаа цэвэрлэх логик.
+     *
+     * @throws Exception
+     */
+    public function executeLogout()
+    {
+        $accessToken = $this->getUser()->getAccessToken();
+
+        if ($accessToken) {
+            $oauthClient = new OauthClient(sfConfig::get('app_oauth_base_uri'), sfConfig::get('app_oauth_client_id'), sfConfig::get('app_oauth_client_secret'));
+            $oauthClient->revokeAccessToken($accessToken);
+
+            $this->getUser()->signOut();
         }
     }
 }
