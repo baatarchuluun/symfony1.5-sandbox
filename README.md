@@ -1,7 +1,7 @@
 # README #
 
 This is sandbox for symfony 1.4.<br/>
-Greensoft Oauth Client library
+Oauth Client library
 
 ### Advantages ###
 

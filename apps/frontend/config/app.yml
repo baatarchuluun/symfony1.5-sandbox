@@ -3,7 +3,7 @@
 
 # default values
 all:
-  oauth_base_uri: 'http://api.accounts.greensoft.mn'
-  oauth_login_uri: 'http://accounts.greensoft.mn/login'
+  oauth_base_uri: 'http://oauth.easystore.mn'
+  oauth_login_uri: 'http://accounts.easystore.mn/login'
   oauth_client_id: 'test'
   oauth_client_secret: 'blabla'
